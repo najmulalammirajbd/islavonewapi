@@ -3,18 +3,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config()
-const corsFonfig = {
-    origin: true,
-    credentials: true,
-    }
+
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.tfgke.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 const app = express()
 
 app.use(bodyParser.json());
-app.use(cors(corsFonfig));
-app.options('*', cors(corsFonfig));
+app.use(cors());
 
 const port = 5000
 
@@ -34,38 +30,6 @@ client.connect(err => {
 
     app.get("/allislavomusics", (req, res) => {
         islavoaudios.find({})
-            .toArray((err, document) => {
-                res.send(document)
-            })
-    })
-    const islavoaudioss = client.db("islavoaudio").collection("islavopremium");
-
-    app.post('/islavopremiums', (req, res) => {
-        const premium = req.body;
-        islavoaudioss.insertOne(premium)
-            .then(result => {
-                res.send(result)
-            })
-    })
-
-    app.get("/allislavopremiums", (req, res) => {
-        islavoaudioss.find({})
-            .toArray((err, document) => {
-                res.send(document)
-            })
-    })
-    const islavoaudiosss = client.db("islavoaudio").collection("islavoshow");
-
-    app.post('/islavoshows', (req, res) => {
-        const show = req.body;
-        islavoaudiosss.insertOne(show)
-            .then(result => {
-                res.send(result)
-            })
-    })
-
-    app.get("/allislavoshows", (req, res) => {
-        islavoaudiosss.find({})
             .toArray((err, document) => {
                 res.send(document)
             })
