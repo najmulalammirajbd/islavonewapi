@@ -34,6 +34,38 @@ client.connect(err => {
                 res.send(document)
             })
     })
+    const islavoaudioss = client.db("islavoaudio").collection("islavopremium");
+
+    app.post('/islavopremiums', (req, res) => {
+        const premium = req.body;
+        islavoaudioss.insertOne(premium)
+            .then(result => {
+                res.send(result)
+            })
+    })
+
+    app.get("/allislavopremiums", (req, res) => {
+        islavoaudioss.find({})
+            .toArray((err, document) => {
+                res.send(document)
+            })
+    })
+    const islavoaudiosss = client.db("islavoaudio").collection("islavoshow");
+
+    app.post('/islavoshows', (req, res) => {
+        const show = req.body;
+        islavoaudiosss.insertOne(show)
+            .then(result => {
+                res.send(result)
+            })
+    })
+
+    app.get("/allislavoshows", (req, res) => {
+        islavoaudiosss.find({})
+            .toArray((err, document) => {
+                res.send(document)
+            })
+    })
 });
 
 
