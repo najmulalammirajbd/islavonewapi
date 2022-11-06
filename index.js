@@ -18,20 +18,20 @@ const port = 5000
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-    const islavoaudios = client.db("islavoaudio").collection("islavomusic");
-    const islavoaudioss = client.db("islavoaudio").collection("islavopremium");
-    const islavoaudiosss = client.db("islavoaudio").collection("islavoshow");
+    const islavosongs = client.db("islavoaudio").collection("islavomusic");
+    const islavoprimiumsongs = client.db("islavoaudio").collection("islavopremium");
+    const islavoshowss = client.db("islavoaudio").collection("islavoshow");
 
     app.post('/islavomusics', (req, res) => {
         const musics = req.body;
-        islavoaudios.insertOne(musics)
+        islavosongs.insertOne(musics)
             .then(result => {
                 res.send(result)
             })
     })
 
     app.get("/allislavomusics", (req, res) => {
-        islavoaudios.find({})
+        islavosongs.find({})
             .toArray((err, document) => {
                 res.send(document)
             })
@@ -39,14 +39,14 @@ client.connect(err => {
     
     app.post('/islavopremiums', (req, res) => {
         const premium = req.body;
-        islavoaudioss.insertOne(premium)
+        islavoprimiumsongs.insertOne(premium)
             .then(result => {
                 res.send(result)
             })
     })
 
     app.get("/allislavopremiums", (req, res) => {
-        islavoaudioss.find({})
+        islavoprimiumsongs.find({})
             .toArray((err, document) => {
                 res.send(document)
             })
@@ -54,14 +54,14 @@ client.connect(err => {
 
     app.post('/islavoshows', (req, res) => {
         const show = req.body;
-        islavoaudiosss.insertOne(show)
+        islavoshowss.insertOne(show)
             .then(result => {
                 res.send(result)
             })
     })
 
     app.get("/allislavoshows", (req, res) => {
-        islavoaudiosss.find({})
+        islavoshowss.find({})
             .toArray((err, document) => {
                 res.send(document)
             })
