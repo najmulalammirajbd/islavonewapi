@@ -1,12 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "vercel-sapper"
-    }
-  ],
   "description": "",
   "main": "index.js",
   "engines": {
