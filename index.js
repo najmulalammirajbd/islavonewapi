@@ -19,6 +19,8 @@ const port = 5000
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
     const islavoaudios = client.db("islavoaudio").collection("islavomusic");
+    const islavoaudioss = client.db("islavoaudio").collection("islavopremium");
+    const islavoaudiosss = client.db("islavoaudio").collection("islavoshow");
 
     app.post('/islavomusics', (req, res) => {
         const musics = req.body;
@@ -34,8 +36,7 @@ client.connect(err => {
                 res.send(document)
             })
     })
-    const islavoaudioss = client.db("islavoaudio").collection("islavopremium");
-
+    
     app.post('/islavopremiums', (req, res) => {
         const premium = req.body;
         islavoaudioss.insertOne(premium)
@@ -50,7 +51,6 @@ client.connect(err => {
                 res.send(document)
             })
     })
-    const islavoaudiosss = client.db("islavoaudio").collection("islavoshow");
 
     app.post('/islavoshows', (req, res) => {
         const show = req.body;
