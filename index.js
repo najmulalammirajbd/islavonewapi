@@ -22,50 +22,45 @@ client.connect(err => {
     const islavoprimiumsongs = client.db("islavoaudio").collection("islavopremium");
     const islavoshowss = client.db("islavoaudio").collection("islavoshow");
 
-    app.post('/islavomusics', (req, res) => {
-        const musics = req.body;
-        islavosongs.insertOne(musics)
-            .then(result => {
-                res.send(result)
-            })
+    app.get( '/allimusics', async (req, res) =>{
+        const cursor = islavosongs.find({});
+        const allimusics = await cursor.toArray();
+        res.send(allimusics);
+    });
+    app.post('/islavomusics', async (req, res) => {
+        const imusics = req.body;
+        const result = await islavosongs.insertOne(imusics);
+        console.log(result);
+        res.send(imusics);
     })
+    //....................
 
-    app.get("/allislavomusics", (req, res) => {
-        islavosongs.find({})
-            .toArray((err, document) => {
-                res.send(document)
-            })
-    })
-    
-    app.post('/islavopremiums', (req, res) => {
-        const premium = req.body;
-        islavoprimiumsongs.insertOne(premium)
-            .then(result => {
-                res.send(result)
-            })
-    })
+    app.get( '/alliprimiums', async (req, res) =>{
+        const cursor = islavoprimiumsongs.find({});
+        const alliprimiums = await cursor.toArray();
+        res.send(alliprimiums);
+    });
+    app.post('/islavoprimiums', async (req, res) => {
+        const iprimiums = req.body;
+        const result = await islavoprimiumsongs.insertOne(iprimiums);
+        console.log(result);
+        res.send(iprimiums);
+    });
 
-    app.get("/allislavopremiums", (req, res) => {
-        islavoprimiumsongs.find({})
-            .toArray((err, document) => {
-                res.send(document)
-            })
-    })
 
-    app.post('/islavoshows', (req, res) => {
-        const show = req.body;
-        islavoshowss.insertOne(show)
-            .then(result => {
-                res.send(result)
-            })
-    })
+    //....................
 
-    app.get("/allislavoshows", (req, res) => {
-        islavoshowss.find({})
-            .toArray((err, document) => {
-                res.send(document)
-            })
-    })
+    app.get( '/allishows', async (req, res) =>{
+        const cursor = islavoshowss.find({});
+        const allishow = await cursor.toArray();
+        res.send(allishow);
+    });
+    app.post('/islavoshows', async (req, res) => {
+        const ishow = req.body;
+        const result = await islavoshowss.insertOne(ishow);
+        console.log(result);
+        res.send(ishow);
+    });
 });
 
 
